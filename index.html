@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Unlock your Xmas gift!</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="game-container">
+    <h2>Daily Word</h2>
+    <div class="grid" id="grid"></div>
+    <div>
+      <input type="text" id="guessInput" maxlength="5" />
+      <button onclick="submitGuess()">Guess</button>
+    </div>
+    <div class="message" id="message"></div>
+  </div>
+  <!-- Voucher Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>🎄 Congratulations! 🎄</h3>
+      <p>You earned your Xmas gift!</p>
+      <div class="voucher">VOUCHER: PLS-MAKE-MY-RING-SETTING</div>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>
