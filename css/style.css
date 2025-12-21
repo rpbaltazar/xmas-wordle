@@ -1,4 +1,5 @@
 body {
+  padding: 16px;
   font-family: Arial, sans-serif;
   background: #121213;
   color: white;
@@ -11,7 +12,8 @@ body {
 
 .game-container {
   text-align: center;
-  width: 320px;
+  width: 100%;
+  max-width: 360px;
 }
 
 .grid {
@@ -28,8 +30,9 @@ body {
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
+  width: min(14vw, 52px);
+  height: min(14vw, 52px);
+  font-size: min(7vw, 24px);
   border: 2px solid #3a3a3c;
   display: flex;
   justify-content: center;
