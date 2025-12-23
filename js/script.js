@@ -12,6 +12,15 @@ input.addEventListener("input", () => {
   message.textContent = "";
 });
 
+input.addEventListener("input", () => {
+  input.value = input.value.toUpperCase();
+  message.textContent = "";
+  updateSubmitState();
+});
+
+const submitBtn = document.getElementById("submitBtn");
+let dictionaryLoaded = false;
+
 // Build grid
 for (let i=0; i < MAX_ATTEMPTS; i++) {
   const row=document.createElement("div");
@@ -42,6 +51,8 @@ fetch("../resources/words.json")
 .then(res => res.json())
 .then(words => {
   DICTIONARY = new Set(words);
+  dictionaryLoaded = true;
+  updateSubmitState();
 })
 .catch(() => {
   console.error("Failed to load dictionary");
@@ -99,6 +110,7 @@ function submitGuess() {
 
     disableGame(`Game over ! You can try again tomorrow!`);
   }
+  updateSubmitState();
 }
 
 function loadGameState() {
@@ -173,6 +185,7 @@ function renderGuess(guess, attemptIndex) {
 function disableGame(text) {
   input.disabled=true;
   message.textContent=text;
+  submitBtn.disabled = true;
 }
 
 function showPopup() {
@@ -189,4 +202,11 @@ function shakeCurrentRow() {
 
   // Remove class so it can re-trigger
   setTimeout(() => row.classList.remove("shake"), 300);
+}
+
+function updateSubmitState() {
+  submitBtn.disabled =
+    !dictionaryLoaded ||
+    gameStatus !== "playing" ||
+    input.value.length !== 5;
 }

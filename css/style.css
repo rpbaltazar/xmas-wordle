@@ -72,6 +72,11 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .message {
   margin-top: 10px;
   min-height: 20px;
