@@ -3,6 +3,7 @@ const MAX_ATTEMPTS=5;
 const WORD_OF_THE_DAY="todaysWord";
 const STORAGE_KEY="lastPlayedDate";
 const GAME_STATE_KEY = "dailyWordGameState";
+const WORD_DICTIONARY_PATH = "resources/words.json"
 
 const grid=document.getElementById("grid");
 const message=document.getElementById("message");
@@ -47,7 +48,7 @@ loadGameState();
 
 // load dictionary
 let DICTIONARY = new Set();
-fetch("../resources/words.json")
+fetch(WORD_DICTIONARY_PATH)
 .then(res => res.json())
 .then(words => {
   DICTIONARY = new Set(words);
@@ -206,8 +207,8 @@ function shakeCurrentRow() {
 }
 
 function updateSubmitState() {
-  submitBtn.disabled =
-    !dictionaryLoaded ||
-    gameStatus !== "playing" ||
-    input.value.length !== 5;
+  console.log(dictionaryLoaded);
+  console.log(gameStatus);
+  console.log(input.value.length);
+  submitBtn.disabled = !dictionaryLoaded || gameStatus !== "playing" || input.value.length !== 5;
 }
