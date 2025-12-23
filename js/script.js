@@ -64,6 +64,7 @@ function submitGuess() {
 
   if (guess.length !==5) {
     message.textContent="Enter a 5-letter word.";
+    shakeCurrentRow();
     return;
   }
 
@@ -71,6 +72,7 @@ function submitGuess() {
 
   if (!DICTIONARY.has(guess)) {
     message.textContent = "Not a valid English word";
+    shakeCurrentRow();
     return;
   }
 
@@ -179,4 +181,12 @@ function showPopup() {
 
 function closePopup() {
   document.getElementById("popup").style.display="none";
+}
+
+function shakeCurrentRow() {
+  const row = grid.children[currentAttempt];
+  row.classList.add("shake");
+
+  // Remove class so it can re-trigger
+  setTimeout(() => row.classList.remove("shake"), 300);
 }
