@@ -19,6 +19,13 @@ input.addEventListener("input", () => {
   updateSubmitState();
 });
 
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !submitBtn.disabled) {
+    e.preventDefault();
+    submitGuess();
+  }
+});
+
 const submitBtn = document.getElementById("submitBtn");
 let dictionaryLoaded = false;
 
