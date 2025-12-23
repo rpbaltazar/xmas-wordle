@@ -199,6 +199,7 @@ function closePopup() {
 function shakeCurrentRow() {
   const row = grid.children[currentAttempt];
   row.classList.add("shake");
+  if (navigator.vibrate) navigator.vibrate(50);
 
   // Remove class so it can re-trigger
   setTimeout(() => row.classList.remove("shake"), 300);

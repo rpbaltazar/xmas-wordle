@@ -147,6 +147,9 @@ button:disabled {
   animation: shake 0.3s ease-in-out;
 }
 
+.row.shake .cell {
+  border-color: #c62828;
+}
 
 @media (max-width: 420px) {
   .game-container > div {
