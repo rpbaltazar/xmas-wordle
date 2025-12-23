@@ -121,6 +121,7 @@ function submitGuess() {
     localStorage.setItem(STORAGE_KEY, today);
     gameStatus = "won";
     saveGameState();
+    launchConfetti();
     showPopup();
     disableGame("You won!");
     return;
@@ -247,4 +248,27 @@ function updateSubmitState() {
   console.log(gameStatus);
   console.log(input.value.length);
   submitBtn.disabled = !dictionaryLoaded || gameStatus !== "playing" || input.value.length !== 5;
+}
+
+function launchConfetti() {
+  const container = document.getElementById("confetti-container");
+  const COLORS = ["#f44336", "#ffeb3b", "#4caf50", "#2196f3", "#e91e63"];
+  const COUNT = 30; // keep low for performance
+
+  for (let i = 0; i < COUNT; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.backgroundColor =
+      COLORS[Math.floor(Math.random() * COLORS.length)];
+
+    const duration = Math.random() * 2 + 2;
+    confetti.style.animationDuration = duration + "s";
+
+    container.appendChild(confetti);
+
+    // cleanup
+    setTimeout(() => confetti.remove(), duration * 1000);
+  }
 }
