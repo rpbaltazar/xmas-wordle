@@ -8,6 +8,10 @@ const grid=document.getElementById("grid");
 const message=document.getElementById("message");
 const input=document.getElementById("guessInput");
 
+input.addEventListener("input", () => {
+  message.textContent = "";
+});
+
 // Build grid
 for (let i=0; i < MAX_ATTEMPTS; i++) {
   const row=document.createElement("div");
@@ -32,6 +36,17 @@ let attempts = [];
 let gameStatus = "playing"; // playing | won | lost
 loadGameState();
 
+// load dictionary
+let DICTIONARY = new Set();
+fetch("../resources/words.json")
+.then(res => res.json())
+.then(words => {
+  DICTIONARY = new Set(words);
+})
+.catch(() => {
+  console.error("Failed to load dictionary");
+});
+
 function fetchWord() {
   const wordOfTheDay = localStorage.getItem(today + ":" + WORD_OF_THE_DAY);
 
@@ -53,6 +68,11 @@ function submitGuess() {
   }
 
   if (currentAttempt >= MAX_ATTEMPTS) return;
+
+  if (!DICTIONARY.has(guess)) {
+    message.textContent = "Not a valid English word";
+    return;
+  }
 
   attempts.push(guess);
   saveGameState();
@@ -147,8 +167,6 @@ function renderGuess(guess, attemptIndex) {
     }
   }
 }
-
-
 
 function disableGame(text) {
   input.disabled=true;
