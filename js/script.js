@@ -35,12 +35,30 @@ for (let i=0; i < MAX_ATTEMPTS; i++) {
   row.className="row";
 
   for (let j=0; j < 5; j++) {
-    const cell=document.createElement("div");
-    cell.className="cell";
+    cell = createCell()
     row.appendChild(cell);
   }
 
   grid.appendChild(row);
+}
+
+function createCell() {
+  const cell = document.createElement("div");
+cell.className = "cell";
+
+const inner = document.createElement("div");
+inner.className = "cell-inner";
+
+const front = document.createElement("div");
+front.className = "cell-face cell-front";
+
+const back = document.createElement("div");
+back.className = "cell-face cell-back";
+
+inner.appendChild(front);
+inner.appendChild(back);
+cell.appendChild(inner);
+return cell;
 }
 
 // Check if already played today
@@ -164,30 +182,41 @@ function renderGuess(guess, attemptIndex) {
   const row = grid.children[attemptIndex];
   const wordLetters = word.split("");
 
-  // First pass: correct
-  for (let i = 0; i < 5; i++) {
-    const cell = row.children[i];
-    cell.textContent = guess[i];
+  // First pass: mark correct letters
+  const results = Array(5).fill("absent");
 
+  for (let i = 0; i < 5; i++) {
     if (guess[i] === word[i]) {
-      cell.classList.add("correct");
+      results[i] = "correct";
       wordLetters[i] = null;
     }
   }
 
-  // Second pass: present / absent
+  // Second pass: present letters
   for (let i = 0; i < 5; i++) {
-    const cell = row.children[i];
-    if (cell.classList.contains("correct")) continue;
+    if (results[i] !== "absent") continue;
 
     const index = wordLetters.indexOf(guess[i]);
     if (index !== -1) {
-      cell.classList.add("present");
+      results[i] = "present";
       wordLetters[index] = null;
-    } else {
-      cell.classList.add("absent");
     }
   }
+
+  // Animate tiles
+  [...row.children].forEach((cell, i) => {
+    const inner = cell.querySelector(".cell-inner");
+    const front = cell.querySelector(".cell-front");
+    const back = cell.querySelector(".cell-back");
+
+    front.textContent = guess[i];
+    back.textContent = guess[i];
+    back.classList.add(results[i]);
+
+    setTimeout(() => {
+      cell.classList.add("flip");
+    }, i * 120); // staggered flip
+  });
 }
 
 function disableGame(text) {

@@ -151,6 +151,37 @@ button:disabled {
   border-color: #c62828;
 }
 
+.cell {
+  perspective: 600px;
+}
+
+.cell-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+}
+
+.cell.flip .cell-inner {
+  transform: rotateX(180deg);
+}
+
+/* Front & back faces */
+.cell-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  font-weight: bold;
+}
+
+.cell-back {
+  transform: rotateX(180deg);
+}
+
+
 @media (max-width: 420px) {
   .game-container > div {
     display: flex;
