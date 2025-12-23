@@ -113,6 +113,12 @@ function submitGuess() {
     return;
   }
 
+  if (attempts.includes(guess)) {
+    message.textContent = "You already tried that word";
+    shakeCurrentRow();
+    return;
+  }
+
   attempts.push(guess);
   saveGameState();
   renderGuess(guess, currentAttempt);
