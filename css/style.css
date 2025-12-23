@@ -105,6 +105,30 @@ button {
   color: #2e7d32;
 }
 
+#snow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
 @media (max-width: 420px) {
   .game-container > div {
     display: flex;
