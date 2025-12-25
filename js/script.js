@@ -107,11 +107,11 @@ function submitGuess() {
 
   if (currentAttempt >= MAX_ATTEMPTS) return;
 
-  if (!DICTIONARY.has(guess)) {
-    message.textContent = "Not a valid English word";
-    shakeCurrentRow();
-    return;
-  }
+  // if (!DICTIONARY.has(guess)) {
+  //   message.textContent = "Not a valid English word";
+  //   shakeCurrentRow();
+  //   return;
+  // }
 
   if (attempts.includes(guess)) {
     message.textContent = "You already tried that word";
@@ -250,9 +250,6 @@ function shakeCurrentRow() {
 }
 
 function updateSubmitState() {
-  console.log(dictionaryLoaded);
-  console.log(gameStatus);
-  console.log(input.value.length);
   submitBtn.disabled = !dictionaryLoaded || gameStatus !== "playing" || input.value.length !== 5;
 }
 
